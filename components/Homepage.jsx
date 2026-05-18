@@ -419,12 +419,16 @@ const ManselBlock = () => (
         </div>
       </div>
 
+      {/* loading="lazy" + tabIndex=-1: keep the embedded SPA from stealing
+          focus on first paint, which was scrolling the page past the hero. */}
       <div className="relative bg-white hairline">
         <iframe
           src="https://mansel.online"
           title="MANSEL — selekční program MANDÍK"
           allow="fullscreen"
           allowFullScreen
+          loading="lazy"
+          tabIndex={-1}
           className="w-full"
           style={{ border: 0, height: "820px" }}
         />
@@ -472,6 +476,8 @@ const AhumanBlock = () => (
           title="AHUman — konfigurátor AHU jednotek MANDÍK"
           allow="fullscreen"
           allowFullScreen
+          loading="lazy"
+          tabIndex={-1}
           style={{
             border: 0,
             width: "1900px",
