@@ -3,7 +3,6 @@
 import React from "react";
 import { SectionLabel, SectionTitle, Button, Stat, useInView } from "./Primitives";
 import { EuropeMap, PINS, AREA_COLOR } from "./EuropeMap";
-import { PressureCalc } from "./PressureCalc";
 
 const HERO_VIDEO = "/assets/hero.webm";
 
@@ -407,23 +406,6 @@ const News = () => (
   </section>
 );
 
-const CalculatorBlock = () => (
-  <section className="bg-white border-t border-mandik-rule">
-    <div className="max-w-[1320px] mx-auto px-10 py-24">
-      <div className="grid grid-cols-12 gap-10 items-end mb-10">
-        <div className="col-span-7">
-          <SectionLabel color="#26d07c">Nástroj pro projektanty</SectionLabel>
-          <SectionTitle>Spočítejte tlakovou ztrátu<br/>úseku přímo v&nbsp;prohlížeči.</SectionTitle>
-        </div>
-        <div className="col-span-5 text-sm text-mandik-steel-80">
-          Bez registrace. Bez instalace. Výsledek si můžete exportovat jako PDF protokol a poslat do zakázkové dokumentace.
-        </div>
-      </div>
-      <PressureCalc />
-    </div>
-  </section>
-);
-
 const ManselBlock = () => (
   <section className="bg-mandik-paper-soft border-t border-mandik-rule">
     <div className="max-w-[1320px] mx-auto px-10 py-24">
@@ -507,7 +489,6 @@ export const Homepage = ({ onNav, tweaks = { heroMedia: "video", parallax: true 
     <StatsStrip />
     <CategoryGrid onNav={onNav} />
     <RefMapPreview onNav={onNav} />
-    <CalculatorBlock />
     <ManselBlock />
     <News />
     <Certifications />
