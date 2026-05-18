@@ -96,11 +96,11 @@ const Hero = ({ onNav, mediaStyle = "video", parallax = true }) => {
               <span className="block h-[2px] w-10 bg-accent" />
               <span className="h-label text-[11px] text-white/80">Hostomice · Česká republika</span>
             </div>
-            <h1 className="h-display text-[80px] leading-[0.95] text-white">
-              Protipožární<br/>a&nbsp;vzduchotechnické<br/>komponenty pro Evropu.
+            <h1 className="h-display text-[64px] leading-[1.0] text-white">
+              Jsme přední český výrobce vzduchotechnických a&nbsp;protipožárních komponentů, klimatizačních jednotek a&nbsp;průmyslových topných systémů.
             </h1>
             <p className="mt-7 text-white/80 text-[18px] max-w-xl leading-relaxed">
-              Česká rodinná manufaktura. Klapky, AHU jednotky a&nbsp;průmyslové topné systémy pro výškové budovy, jaderné elektrárny a&nbsp;technologické kampusy.
+              Česká rodinná firma. Klapky, AHU jednotky a&nbsp;průmyslové topné systémy pro výškové budovy, jaderné elektrárny a&nbsp;technologické kampusy.
             </p>
             <div className="mt-9 flex items-center gap-3">
               <Button variant="primary" onClick={(e) => { e.preventDefault(); onNav("product"); }}>Prozkoumat výrobu</Button>
@@ -424,6 +424,51 @@ const CalculatorBlock = () => (
   </section>
 );
 
+const ManselBlock = () => (
+  <section className="bg-mandik-paper-soft border-t border-mandik-rule">
+    <div className="max-w-[1320px] mx-auto px-10 py-24">
+      <div className="grid grid-cols-12 gap-10 items-end mb-10">
+        <div className="col-span-7">
+          <SectionLabel color="#74d1ea">Selekční program · MANSEL</SectionLabel>
+          <SectionTitle>Navrhněte VZT komponenty<br/>online — výběr, výpočet, výkres.</SectionTitle>
+        </div>
+        <div className="col-span-5 text-sm text-mandik-steel-80">
+          MANSEL je oficiální selekční program MANDÍK. Vyberete typ klapky, zadáte rozměry a&nbsp;průtok — dostanete kompletní dokumentaci včetně DWG / IFC modelu a&nbsp;protokolu o&nbsp;tlakové ztrátě.
+        </div>
+      </div>
+
+      <div className="relative bg-white hairline">
+        <iframe
+          src="https://mansel.online"
+          title="MANSEL — selekční program MANDÍK"
+          allow="fullscreen"
+          allowFullScreen
+          className="w-full"
+          style={{ border: 0, height: "820px" }}
+        />
+        <div className="absolute top-4 left-4 bg-cat-vzt text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">MANSEL · LIVE</div>
+        <div className="absolute top-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none">mansel.online</div>
+      </div>
+
+      <div className="mt-3 grid grid-cols-4 gap-px bg-mandik-rule hairline">
+        {["Bez registrace · základní výběr","Výstup PDF · DWG · IFC","Akt. ceník a&nbsp;dostupnost","Podpora projektantů"].map((b) => (
+          <div key={b} className="bg-white p-3 h-label text-[11px] text-mandik-steel text-center" dangerouslySetInnerHTML={{ __html: b }} />
+        ))}
+      </div>
+
+      <div className="mt-7 flex items-center justify-between flex-wrap gap-4">
+        <div className="mono text-[12px] text-mandik-steel-70">
+          Pokud se MANSEL nenačte v rámci, otevřete jej v novém okně — některé prohlížeče blokují vložené aplikace.
+        </div>
+        <div className="flex items-center gap-3">
+          <Button variant="primary" href="https://mansel.online">Otevřít MANSEL v novém okně</Button>
+          <Button variant="ghost" href="#">Stáhnout uživatelskou příručku</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const Showroom = ({ onNav }) => (
   <section className="bg-mandik-steel text-white relative overflow-hidden">
     <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
@@ -463,6 +508,7 @@ export const Homepage = ({ onNav, tweaks = { heroMedia: "video", parallax: true 
     <CategoryGrid onNav={onNav} />
     <RefMapPreview onNav={onNav} />
     <CalculatorBlock />
+    <ManselBlock />
     <News />
     <Certifications />
     <Showroom onNav={onNav} />

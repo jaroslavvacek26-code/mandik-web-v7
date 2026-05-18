@@ -31,7 +31,7 @@ const NAV = [
         title: "Topné systémy",
         color: "#f2a900",
         items: [
-          { name: "Teplovzdušné agregáty", code: "MONZUN · ATREA", route: "category" },
+          { name: "Teplovzdušné agregáty", code: "MONZUN", route: "category" },
           { name: "Plynová tepelná čerpadla", code: "HEATWING", route: "category" },
           { name: "Sálavé panely", code: "HELIOS / GAMA", route: "category" },
         ],

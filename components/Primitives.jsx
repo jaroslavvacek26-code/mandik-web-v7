@@ -70,7 +70,7 @@ export const Photo = ({ src, label, ratio = "4/3", className = "", priority = fa
   );
 };
 
-export const Button = ({ children, variant = "primary", href = "#", icon, onClick, className = "" }) => {
+export const Button = ({ children, variant = "primary", href = "#", icon, onClick, target, rel, className = "" }) => {
   const base = "inline-flex items-center gap-3 h-11 px-5 h-label text-[11px] transition-colors duration-150";
   const styles = {
     primary: "bg-accent text-mandik-ink hover:bg-[#1ec170]",
@@ -78,8 +78,15 @@ export const Button = ({ children, variant = "primary", href = "#", icon, onClic
     ghost: "bg-transparent text-mandik-ink ring-1 ring-mandik-rule hover:ring-mandik-steel hover:text-mandik-steel",
     invertGhost: "bg-transparent text-white ring-1 ring-white/40 hover:ring-white",
   };
+  const isExternal = href && /^https?:\/\//.test(href);
   return (
-    <a href={href} onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>
+    <a
+      href={href}
+      onClick={onClick}
+      target={target ?? (isExternal ? "_blank" : undefined)}
+      rel={rel ?? (isExternal ? "noopener noreferrer" : undefined)}
+      className={`${base} ${styles[variant]} ${className}`}
+    >
       <span>{children}</span>
       {icon !== false && (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
