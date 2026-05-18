@@ -464,17 +464,24 @@ const AhumanBlock = () => (
         </div>
       </div>
 
-      <div className="relative bg-white hairline">
+      {/* AHUman switches to a cramped narrow layout below ~1500px viewport,
+          so render it natively at 1900px and scale it down to fit. */}
+      <div className="relative hairline overflow-hidden" style={{ height: "806px" }}>
         <iframe
           src="https://ahuman.mandik.cloud/"
           title="AHUman — konfigurátor AHU jednotek MANDÍK"
           allow="fullscreen"
           allowFullScreen
-          className="w-full"
-          style={{ border: 0, height: "820px" }}
+          style={{
+            border: 0,
+            width: "1900px",
+            height: "1240px",
+            transform: "scale(0.65)",
+            transformOrigin: "0 0",
+          }}
         />
-        <div className="absolute top-4 left-4 bg-accent text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">AHUMAN · LIVE</div>
-        <div className="absolute top-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none">ahuman.mandik.cloud</div>
+        <div className="absolute top-4 left-4 bg-accent text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none z-10">AHUMAN · LIVE</div>
+        <div className="absolute top-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none z-10">ahuman.mandik.cloud</div>
       </div>
 
       <div className="mt-3 grid grid-cols-4 gap-px bg-mandik-rule hairline">
