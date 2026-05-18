@@ -1,0 +1,470 @@
+"use client";
+
+import React from "react";
+import { SectionLabel, SectionTitle, Button, Stat, useInView } from "./Primitives";
+import { EuropeMap, PINS, AREA_COLOR } from "./EuropeMap";
+import { PressureCalc } from "./PressureCalc";
+
+const HERO_VIDEO = "/assets/hero.webm";
+
+const HOMEPAGE_TILES = [
+  {
+    color: "#74d1ea",
+    code: "VZT",
+    title: "VZT komponenty",
+    sub: "Protipožární a regulační klapky, mřížky, tlumiče, anemostaty.",
+    spec: "EI 30 — EI 240 · do 1 600 × 1 000 mm",
+    qty: "1 240+ položek",
+    photo: "VZT KOMPONENTY",
+    img: "/assets/division-vzt.jpg",
+  },
+  {
+    color: "#26d07c",
+    code: "AHU",
+    title: "AHU jednotky",
+    sub: "Sestavné vzduchotechnické jednotky MANDÍK, RLT certifikace.",
+    spec: "do 100 000 m³/h · VDI 6022",
+    qty: "9 řad · OEM",
+    photo: "AHU JEDNOTKY",
+    img: "/assets/division-ahu.jpg",
+  },
+  {
+    color: "#f2a900",
+    code: "HEAT",
+    title: "Průmyslové topné systémy",
+    sub: "Teplovzdušné agregáty, sálavé panely, plynová tepelná čerpadla.",
+    spec: "5 — 1 200 kW",
+    qty: "MONZUN · HEATWING",
+    photo: "TOPNÉ SYSTÉMY",
+    img: "/assets/division-heat.jpg",
+  },
+  {
+    color: "#ffd700",
+    code: "SPEC",
+    title: "Speciální aplikace",
+    sub: "Jaderná technika, tunelové systémy, vývoj na zakázku.",
+    spec: "KTA 1401 · 10CFR APP10 · EN 12101-3",
+    qty: "OEM",
+    photo: "JADERNÁ TECHNIKA",
+    img: "/assets/division-spec.jpg",
+  },
+];
+
+const NEWS = [
+  { date: "12. 5. 2026", cat: "Vývoj", title: "Nová generace PKTM IV+ s protokolem BACnet vstupuje do certifikace EI 240", img: "VÝVOJ" },
+  { date: "30. 4. 2026", cat: "Reference", title: "Dodávka 1 340 kusů PKI-EI pro 22 Bishopsgate v Londýně dokončena", img: "REFERENCE" },
+  { date: "14. 4. 2026", cat: "Výroba", title: "Otevíráme novou výrobní halu Hostomice III — +18 000 m² pro AHU", img: "VÝROBA" },
+];
+
+const Hero = ({ onNav, mediaStyle = "video", parallax = true }) => {
+  const [y, setY] = React.useState(0);
+  React.useEffect(() => {
+    if (!parallax) return;
+    const onScroll = () => setY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [parallax]);
+
+  return (
+    <section className="relative h-[100vh] min-h-[720px] bg-mandik-steel overflow-hidden">
+      <div
+        className="absolute inset-0"
+        style={{ transform: parallax ? `translateY(${y * 0.25}px) scale(1.05)` : "none", transition: "transform 0.05s linear" }}
+      >
+        {mediaStyle === "video" ? (
+          <video
+            src={HERO_VIDEO}
+            autoPlay muted loop playsInline
+            className="w-full h-full object-cover"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
+        ) : (
+          <div className="w-full h-full img-placeholder">
+            <span style={{ fontSize: 14 }}>VIDEO HERO · VÝROBA HOSTOMICE</span>
+          </div>
+        )}
+      </div>
+      <div className="absolute inset-0 hero-tint" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2" style={{ background: "linear-gradient(to top, rgba(26,26,26,0.55), transparent)" }} />
+
+      <div className="relative h-full max-w-[1320px] mx-auto px-10 flex flex-col justify-end pb-20 text-white">
+        <div className="grid grid-cols-12 gap-10 items-end">
+          <div className="col-span-7">
+            <div className="flex items-center gap-3 mb-7">
+              <span className="block h-[2px] w-10 bg-accent" />
+              <span className="h-label text-[11px] text-white/80">Výrobce — 1990</span>
+              <span className="block h-[2px] w-10 bg-accent" />
+              <span className="h-label text-[11px] text-white/80">Hostomice · Česká republika</span>
+            </div>
+            <h1 className="h-display text-[80px] leading-[0.95] text-white">
+              Protipožární<br/>a&nbsp;vzduchotechnické<br/>komponenty pro Evropu.
+            </h1>
+            <p className="mt-7 text-white/80 text-[18px] max-w-xl leading-relaxed">
+              Česká rodinná manufaktura. Klapky, AHU jednotky a&nbsp;průmyslové topné systémy pro výškové budovy, jaderné elektrárny a&nbsp;technologické kampusy.
+            </p>
+            <div className="mt-9 flex items-center gap-3">
+              <Button variant="primary" onClick={(e) => { e.preventDefault(); onNav("product"); }}>Prozkoumat výrobu</Button>
+              <Button variant="invertGhost" onClick={(e) => { e.preventDefault(); onNav("downloads"); }}>Centrum dokumentace</Button>
+            </div>
+          </div>
+          <div className="col-span-5">
+            <div className="hairline bg-mandik-steel/40 backdrop-blur p-6 text-white">
+              <div className="h-label text-[11px] text-white/65 mb-4">Aktuální zakázky</div>
+              <ul className="space-y-3 text-[13px]">
+                <li className="flex justify-between border-b border-white/15 pb-2">
+                  <span>Elbtower, Hamburk — AHU 9.6</span>
+                  <span className="mono text-white/65">Q3 / 2026</span>
+                </li>
+                <li className="flex justify-between border-b border-white/15 pb-2">
+                  <span>Paks II — speciální aplikace</span>
+                  <span className="mono text-white/65">2026—2031</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Karolinska, Stockholm — PKI-EI 530 ks</span>
+                  <span className="mono text-white/65">Q2 / 2026</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute top-[80px] right-10 hidden md:flex flex-col items-end gap-2 mono text-[10px] text-white/55 uppercase tracking-wider">
+        <div>49°51′23″N · 14°02′16″E</div>
+        <div>kapacita · 25 800 ks / měsíc</div>
+      </div>
+      <div className="absolute bottom-6 right-10 flex items-center gap-3 mono text-[11px] text-white/60">
+        <span className="block w-1.5 h-1.5 bg-accent animate-pulse" />
+        LIVE · výrobní hala B
+      </div>
+    </section>
+  );
+};
+
+const StatsStrip = () => {
+  const ref = React.useRef(null);
+  const inView = useInView(ref);
+  return (
+    <section ref={ref} className="bg-white border-y border-mandik-rule">
+      <div className="max-w-[1320px] mx-auto px-10 py-16 grid grid-cols-4 gap-px bg-mandik-rule">
+        <div className="bg-white p-8"><Stat value={33} suffix="+" label="Let na trhu" sub="Od založení 1990" inView={inView} /></div>
+        <div className="bg-white p-8"><Stat value={32} suffix="" label="Zemí dodávek" sub="Z Hostomic do celé Evropy" inView={inView} /></div>
+        <div className="bg-white p-8"><Stat value={372} suffix="" label="Zaměstnanců" sub="Výroba · vývoj · servis" inView={inView} /></div>
+        <div className="bg-white p-8"><Stat value={48700} suffix="+" label="Dokončených projektů" sub="Včetně 14 jaderných elektráren" inView={inView} /></div>
+      </div>
+    </section>
+  );
+};
+
+const CategoryGrid = ({ onNav }) => (
+  <section className="bg-mandik-paper-soft">
+    <div className="max-w-[1320px] mx-auto px-10 py-24">
+      <div className="grid grid-cols-12 gap-10 items-end mb-12">
+        <div className="col-span-8">
+          <SectionLabel>Čtyři výrobní oblasti</SectionLabel>
+          <SectionTitle>Od ⌀100 mm do 100&nbsp;000 m³/h.<br/>Vlastní vývoj. Hostomická výroba.</SectionTitle>
+        </div>
+        <div className="col-span-4 text-mandik-steel-80 text-sm">
+          Každá výrobní oblast má vlastní barvu — odpovídá značení v dokumentaci, na výrobních štítcích a v identifikaci v expedici.
+        </div>
+      </div>
+      <div className="grid grid-cols-4 gap-px bg-mandik-rule">
+        {HOMEPAGE_TILES.map((t) => (
+          <a key={t.code} href="#" onClick={(e) => { e.preventDefault(); onNav("category", { color: t.color, code: t.code, title: t.title }); }} className="tile relative bg-white p-8 group transition-colors hover:bg-mandik-paper-soft">
+            <span className="tile-bar" style={{ background: t.color }} />
+            <div className="aspect-square relative overflow-hidden mb-7 bg-mandik-paper-soft">
+              <img
+                src={t.img}
+                alt={t.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+              <span className="absolute top-3 left-3 mono text-[10px] px-2 py-0.5 text-mandik-ink z-10" style={{ background: t.color }}>
+                {t.code}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="block h-1 w-8" style={{ background: t.color }} />
+              <span className="h-label text-[10px] text-mandik-steel">{t.qty}</span>
+            </div>
+            <div className="h-display text-[22px] leading-tight">{t.title}</div>
+            <div className="text-sm text-mandik-steel-80 mt-2">{t.sub}</div>
+            <div className="mt-6 pt-4 border-t border-mandik-rule mono text-[11px] text-mandik-steel-70">{t.spec}</div>
+            <div className="mt-5 h-label text-[11px] text-mandik-steel group-hover:text-accent">Otevřít →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const RefMapPreview = ({ onNav }) => {
+  const ref = React.useRef(null);
+  const inView = useInView(ref, { threshold: 0.15 });
+  const [selected, setSelected] = React.useState(PINS[3]);
+  const accentColor = selected.special ? "#ffd700" : (AREA_COLOR[selected.area] || "#26d07c");
+  return (
+    <section ref={ref} className="bg-mandik-ink text-white">
+      <div className="max-w-[1320px] mx-auto px-10 py-24">
+        <div className="grid grid-cols-12 gap-10 items-end mb-10">
+          <div className="col-span-7">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 bg-accent" />
+              <span className="h-label text-xs text-accent">Reference</span>
+            </div>
+            <h2 className="h-display text-[44px] leading-[1.05]">Naše komponenty<br/>v 1 280 budovách napříč Evropou.</h2>
+          </div>
+          <div className="col-span-5 text-white/65 text-sm">
+            Od jaderných elektráren po Národní muzeum. Mapa se vykresluje při scrollu — kliknutím na špendlík zobrazíte případovou studii.
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-px bg-white/10 hairline">
+          <div className="col-span-8 bg-mandik-ink">
+            <EuropeMap revealed={inView} selectedId={selected?.id} onSelect={setSelected} height={560} variant="dark" />
+          </div>
+          <div className="col-span-4 bg-mandik-steel p-7 flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <div className="h-label text-[11px] text-white/55">Vybraná reference</div>
+              <div className="mono text-[11px] text-white/55">#{String(selected.id).padStart(3, "0")} / 1 280</div>
+            </div>
+
+            <div className="h-display text-[28px] leading-tight">{selected.project}</div>
+            <div className="mt-2 flex items-center gap-2 mono text-[12px] text-white/70">
+              <span>{selected.city}, {selected.country}</span>
+              <span className="opacity-50">·</span>
+              <span>{selected.year}</span>
+              <span className="opacity-50">·</span>
+              <span className="tabular-nums">{selected.lat.toFixed(2)}° {selected.lat >= 0 ? "N" : "S"}, {selected.lon.toFixed(2)}° {selected.lon >= 0 ? "E" : "W"}</span>
+            </div>
+
+            <div className="mt-7 grid grid-cols-2 gap-px bg-white/10">
+              <div className="bg-mandik-steel p-4">
+                <div className="mono text-[10px] text-white/55 uppercase tracking-wider">Dodáno</div>
+                <div className="h-display text-[28px] mt-1 tabular-nums">{selected.units}</div>
+                <div className="text-[11px] text-white/65">jednotek</div>
+              </div>
+              <div className="bg-mandik-steel p-4">
+                <div className="mono text-[10px] text-white/55 uppercase tracking-wider">Sektor</div>
+                <div className="h-display text-[18px] mt-1 leading-tight">{selected.sector}</div>
+                <div className="h-1 w-6 mt-2" style={{ background: accentColor }} />
+              </div>
+              <div className="bg-mandik-steel p-4 col-span-2">
+                <div className="mono text-[10px] text-white/55 uppercase tracking-wider">Výrobní oblast</div>
+                <div className="flex items-center gap-3 mt-2">
+                  <span className="block h-2 w-8" style={{ background: accentColor }} />
+                  <span className="h-display text-[18px] leading-tight">{selected.area}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 mono text-[11px] text-white/60 leading-relaxed">
+              {selected.special
+                ? "Speciální zakázka s certifikací KTA 1401 / 10CFR APP10. Detail dostupný na vyžádání."
+                : "Standardní dodávka — kompletní balíček dokumentace v centru ke stažení."}
+            </div>
+
+            <div className="mt-auto pt-7 flex flex-col gap-2">
+              <Button variant="primary" onClick={(e) => { e.preventDefault(); onNav("references"); }}>Otevřít všechny reference</Button>
+              <Button variant="invertGhost" href="#">Stáhnout případovou studii (PDF)</Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center gap-2 flex-wrap">
+          <span className="h-label text-[10px] text-white/45 mr-2">Rychlý výběr:</span>
+          {[10, 7, 33, 35, 18, 12, 34, 13, 9].map((id) => {
+            const p = PINS.find((x) => x.id === id);
+            if (!p) return null;
+            const isSel = selected.id === id;
+            const c = p.special ? "#ffd700" : (AREA_COLOR[p.area] || "#26d07c");
+            return (
+              <button
+                key={id}
+                onClick={() => setSelected(p)}
+                className={`px-3 py-1.5 hairline flex items-center gap-2 mono text-[11px] transition-colors ${isSel ? "bg-white text-mandik-ink" : "bg-mandik-ink text-white/70 hover:text-white"}`}
+              >
+                <span className="block w-1.5 h-1.5" style={{ background: c }} />
+                {p.city} — {p.project.split("—")[0].trim()}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const CERT_LOGOS = [
+  { src: "/assets/cert/EUROVENT.png", alt: "Eurovent Certified Performance", note: "AHU certifikace", url: "http://www.eurovent-certification.com/index.php?lg=en" },
+  { src: "/assets/cert/RLT.jpg", alt: "RLT-Geräte Herstellerverband", note: "DE výrobci AHU", url: "https://rlt-geraete.de/" },
+  { src: "/assets/cert/TUV.jpg", alt: "TÜV SÜD", note: "Inspekce a audit", url: "https://www.tuvsud.com/de-de" },
+  { src: "/assets/cert/CCPI_FD.png", alt: "CCPI Fire Dampers", note: "UK požární certifikace", url: "https://www.cpicode.org.uk/" },
+  { src: "/assets/cert/CCPI_SCD.png", alt: "CCPI Smoke Control Dampers", note: "UK kouř a teplo", url: "https://www.cpicode.org.uk/" },
+  { src: "/assets/cert/Efectis.jpg", alt: "Efectis", note: "Požární zkoušky", url: "https://efectis.com/en/" },
+  { src: "/assets/cert/PAVUS.png", alt: "PAVUS", note: "Akreditovaná zkušebna", url: "https://www.pavus.cz/" },
+  { src: "/assets/cert/FTZU.jpg", alt: "FTZÚ — Ex", note: "ATEX zkušebna", url: "https://www.ftzu.cz/cs/" },
+  { src: "/assets/cert/VUPS.png", alt: "VÚPS", note: "Stavební zkušebna", url: "https://www.vups.cz/" },
+  { src: "/assets/cert/DIvB.png", alt: "DIvB — Ich bin dabei!", note: "Asociace D-A-CH", url: "https://divb.org/" },
+  { src: "/assets/cert/EPD.png", alt: "EPD Verified", note: "Env. prohlášení", url: "https://www.ekoznacka.cz/databaze-epd-v-cr/" },
+  { src: "/assets/cert/INDESEN.png", alt: "INDESEN", note: "Inženýring · průmysl", url: "https://www.indesen.cz/" },
+  { src: "/assets/cert/MagiCAD.jpg", alt: "MagiCAD", note: "BIM rodiny pro Revit", url: "https://www.magicad.com/en/" },
+  { src: "/assets/cert/MagiCloud.jpg", alt: "MagiCloud", note: "BIM cloud manufacturer", url: "https://www.magicloud.com/products/#/manufacturer/mandik" },
+];
+
+const Certifications = () => (
+  <section className="bg-white border-t border-mandik-rule">
+    <div className="max-w-[1320px] mx-auto px-10 py-20">
+      <div className="grid grid-cols-12 gap-10 items-end mb-10">
+        <div className="col-span-7">
+          <SectionLabel>Certifikace & partneři</SectionLabel>
+          <SectionTitle>Standardy, které <br />vyžadují naši zákazníci.</SectionTitle>
+        </div>
+        <div className="col-span-5 text-sm text-mandik-steel-80">
+          Pravidelné audity, harmonizované evropské normy, oborové certifikace pro jadernou techniku a hygienické provedení. Klikem na logo otevřete domovskou stránku partnera.
+        </div>
+      </div>
+
+      <div className="grid grid-cols-6 gap-px bg-mandik-rule hairline mb-8">
+        {[
+          ["ISO 9001", "Řízení kvality"],
+          ["KTA 1401", "Jaderná bezp."],
+          ["10CFR APP10", "US Nuclear"],
+          ["EN 15650", "Klapky"],
+          ["EN 1366-2", "Požární odolnost"],
+          ["EN 12101-3", "Odvod kouře"],
+          ["VDI 6022", "Hygiena"],
+          ["DIN 1946-4", "Zdravotnictví"],
+          ["BRE", "Požární kom. UK"],
+          ["ČSN EN 1505", "Příruby"],
+          ["ATEX", "Výbušné prostředí"],
+          ["BACnet", "Interoperabilita"],
+        ].map(([k, v]) => (
+          <div key={k} className="bg-white p-5 flex flex-col gap-2">
+            <div className="h-display text-[16px]">{k}</div>
+            <div className="text-[11px] text-mandik-steel-70">{v}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-7 gap-px bg-mandik-rule hairline">
+        {CERT_LOGOS.map((c) => (
+          <a
+            key={c.alt}
+            href={c.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={c.alt}
+            className="group bg-white aspect-[3/2] flex flex-col items-center justify-center p-4 transition-colors hover:bg-mandik-paper-soft"
+          >
+            <div className="flex-1 w-full flex items-center justify-center">
+              <img
+                src={c.src}
+                alt={c.alt}
+                loading="lazy"
+                className="max-h-[56px] max-w-full object-contain transition-[filter,opacity] duration-150 grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100"
+              />
+            </div>
+            <div className="mt-3 mono text-[10px] uppercase tracking-wider text-mandik-steel-70 text-center leading-tight">
+              {c.note}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const News = () => (
+  <section className="bg-mandik-paper-soft">
+    <div className="max-w-[1320px] mx-auto px-10 py-24">
+      <div className="grid grid-cols-12 gap-10 items-end mb-10">
+        <div className="col-span-7">
+          <SectionLabel>Novinky</SectionLabel>
+          <SectionTitle>Vývoj výrobků,<br/>dokončené dodávky, akce.</SectionTitle>
+        </div>
+        <div className="col-span-5 flex items-end justify-end">
+          <Button variant="ghost" href="#">Otevřít archiv (216 článků)</Button>
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-px bg-mandik-rule hairline">
+        {NEWS.map((n) => (
+          <a key={n.title} href="#" className="tile relative bg-white">
+            <span className="tile-bar" style={{ background: "#26d07c" }} />
+            <div className="aspect-[4/3] img-placeholder relative">
+              <span>{n.img}</span>
+              <span className="absolute top-3 left-3 mono text-[10px] bg-white px-2 py-0.5 text-mandik-ink">{n.cat}</span>
+            </div>
+            <div className="p-6">
+              <div className="mono text-[11px] text-mandik-steel-70 mb-3">{n.date}</div>
+              <div className="h-display text-[20px] leading-tight">{n.title}</div>
+              <div className="mt-5 h-label text-[10px] text-mandik-steel">Číst dál →</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const CalculatorBlock = () => (
+  <section className="bg-white border-t border-mandik-rule">
+    <div className="max-w-[1320px] mx-auto px-10 py-24">
+      <div className="grid grid-cols-12 gap-10 items-end mb-10">
+        <div className="col-span-7">
+          <SectionLabel color="#26d07c">Nástroj pro projektanty</SectionLabel>
+          <SectionTitle>Spočítejte tlakovou ztrátu<br/>úseku přímo v&nbsp;prohlížeči.</SectionTitle>
+        </div>
+        <div className="col-span-5 text-sm text-mandik-steel-80">
+          Bez registrace. Bez instalace. Výsledek si můžete exportovat jako PDF protokol a poslat do zakázkové dokumentace.
+        </div>
+      </div>
+      <PressureCalc />
+    </div>
+  </section>
+);
+
+const Showroom = ({ onNav }) => (
+  <section className="bg-mandik-steel text-white relative overflow-hidden">
+    <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
+      <div className="col-span-6">
+        <SectionLabel color="#26d07c"><span className="text-accent">Nově · virtuální showroom</span></SectionLabel>
+        <h2 className="h-display text-[44px] leading-[1.05]">Projděte si výrobu<br/>v Hostomicích bez návštěvy.</h2>
+        <p className="mt-5 text-white/75 max-w-md text-[15px]">
+          Interaktivní 360° prohlídka výroby, testovacích buněk pro EI 240 a kompletační haly AHU jednotek. Přístup pro projektanty na vyžádání.
+        </p>
+        <div className="mt-7 flex gap-3">
+          <Button variant="primary" href="https://my.matterport.com/show/?m=MW8NFZmbZoo">Otevřít showroom</Button>
+          <Button variant="invertGhost" href="#">Domluvit fyzickou prohlídku</Button>
+        </div>
+      </div>
+      <div className="col-span-6 relative">
+        <div className="relative bg-mandik-ink hairline" style={{ aspectRatio: "4 / 3" }}>
+          <iframe
+            src="https://my.matterport.com/show/?m=MW8NFZmbZoo"
+            title="Virtuální showroom MANDÍK"
+            allow="xr-spatial-tracking; fullscreen; gyroscope; accelerometer"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+            style={{ border: 0 }}
+          />
+        </div>
+        <div className="absolute top-4 left-4 bg-accent text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">360°</div>
+        <div className="absolute bottom-4 right-4 mono text-[10px] text-white/80 bg-mandik-ink/70 px-2 py-1 pointer-events-none">14 STANOVIŠŤ · 8K</div>
+      </div>
+    </div>
+  </section>
+);
+
+export const Homepage = ({ onNav, tweaks = { heroMedia: "video", parallax: true } }) => (
+  <div data-screen-label="Homepage" className="page-enter">
+    <Hero onNav={onNav} mediaStyle={tweaks.heroMedia} parallax={tweaks.parallax} />
+    <StatsStrip />
+    <CategoryGrid onNav={onNav} />
+    <RefMapPreview onNav={onNav} />
+    <CalculatorBlock />
+    <News />
+    <Certifications />
+    <Showroom onNav={onNav} />
+  </div>
+);
