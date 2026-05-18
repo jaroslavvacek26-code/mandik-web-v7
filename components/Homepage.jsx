@@ -451,6 +451,51 @@ const ManselBlock = () => (
   </section>
 );
 
+const AhumanBlock = () => (
+  <section className="bg-white border-t border-mandik-rule">
+    <div className="max-w-[1320px] mx-auto px-10 py-24">
+      <div className="grid grid-cols-12 gap-10 items-end mb-10">
+        <div className="col-span-7">
+          <SectionLabel color="#26d07c">Konfigurátor · AHUman</SectionLabel>
+          <SectionTitle>Návrh AHU jednotky<br/>od&nbsp;průtoku po&nbsp;cenovou nabídku.</SectionTitle>
+        </div>
+        <div className="col-span-5 text-sm text-mandik-steel-80">
+          AHUman je online konfigurátor sestavných vzduchotechnických jednotek MANDÍK. Zadáte průtok, externí tlak a&nbsp;hygienické požadavky — dostanete schéma sestavy, akustický protokol a&nbsp;cenovou indikaci.
+        </div>
+      </div>
+
+      <div className="relative bg-white hairline">
+        <iframe
+          src="https://ahuman.mandik.cloud/"
+          title="AHUman — konfigurátor AHU jednotek MANDÍK"
+          allow="fullscreen"
+          allowFullScreen
+          className="w-full"
+          style={{ border: 0, height: "820px" }}
+        />
+        <div className="absolute top-4 left-4 bg-accent text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">AHUMAN · LIVE</div>
+        <div className="absolute top-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none">ahuman.mandik.cloud</div>
+      </div>
+
+      <div className="mt-3 grid grid-cols-4 gap-px bg-mandik-rule hairline">
+        {["Průtok do 100 000 m³/h","Eurovent · VDI 6022","Akustický protokol","Cenová indikace v reálném čase"].map((b) => (
+          <div key={b} className="bg-white p-3 h-label text-[11px] text-mandik-steel text-center">{b}</div>
+        ))}
+      </div>
+
+      <div className="mt-7 flex items-center justify-between flex-wrap gap-4">
+        <div className="mono text-[12px] text-mandik-steel-70">
+          Pro pokročilé funkce (uložené projekty, export DWG, BIM rodiny) je doporučeno otevřít AHUman v samostatném okně.
+        </div>
+        <div className="flex items-center gap-3">
+          <Button variant="primary" href="https://ahuman.mandik.cloud/">Otevřít AHUman v novém okně</Button>
+          <Button variant="ghost" href="#">Stáhnout uživatelskou příručku</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const Showroom = ({ onNav }) => (
   <section className="bg-mandik-steel text-white relative overflow-hidden">
     <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
@@ -490,6 +535,7 @@ export const Homepage = ({ onNav, tweaks = { heroMedia: "video", parallax: true 
     <CategoryGrid onNav={onNav} />
     <RefMapPreview onNav={onNav} />
     <ManselBlock />
+    <AhumanBlock />
     <News />
     <Certifications />
     <Showroom onNav={onNav} />
