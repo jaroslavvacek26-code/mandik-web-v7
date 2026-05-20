@@ -100,7 +100,7 @@ const Hero = ({ onNav, mediaStyle = "video", parallax = true }) => {
               <span className="h-label text-[11px] text-white/80">Hostomice · Česká republika</span>
             </div>
             <h1 className="h-display text-[64px] leading-[1.0] text-white">
-              Jsme přední český výrobce vzduchotechnických a&nbsp;protipožárních komponentů, klimatizačních jednotek a&nbsp;průmyslových topných systémů.
+              Jsme největší český výrobce komponent pro větrání a&nbsp;požární ochranu budov
             </h1>
             <p className="mt-7 text-white/80 text-[18px] max-w-xl leading-relaxed">
               Česká rodinná firma. Klapky, AHU jednotky a&nbsp;průmyslové topné systémy pro výškové budovy, jaderné elektrárny a&nbsp;technologické kampusy.
