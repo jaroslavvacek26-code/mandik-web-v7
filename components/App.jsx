@@ -16,7 +16,7 @@ const DEFAULT_TWEAKS = {
   accent: "#26d07c",
 };
 
-export const App = () => {
+export const App = ({ categories = [] }) => {
   const [route, setRoute] = React.useState("home");
   const [lang, setLang] = React.useState("cs");
   const tweaks = DEFAULT_TWEAKS;
@@ -30,7 +30,7 @@ export const App = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header route={route} onNav={onNav} lang={lang} onLang={setLang} />
+      <Header route={route} onNav={onNav} lang={lang} onLang={setLang} categories={categories} />
 
       <main key={route} className="flex-1">
         {route === "home" && <Homepage onNav={onNav} tweaks={tweaks} />}
@@ -42,7 +42,7 @@ export const App = () => {
         {route === "contact" && <ContactStub onNav={onNav} />}
       </main>
 
-      <Footer onNav={onNav} />
+      <Footer onNav={onNav} categories={categories} />
     </div>
   );
 };

@@ -30,7 +30,7 @@ export const ContactStub = ({ onNav }) => (
             <label className="block col-span-2">
               <span className="h-label text-[10px] text-mandik-steel-70">Výrobní oblast</span>
               <div className="mt-2 flex flex-wrap gap-1">
-                {["VZT komponenty","AHU jednotky","Topné systémy","Speciální aplikace"].map((c) => (
+                {["AHC komponenty","AHU jednotky","Topné systémy","Speciální aplikace"].map((c) => (
                   <span key={c} className="px-3 py-1.5 hairline mono text-[11px] text-mandik-steel hover:bg-mandik-rule cursor-pointer">{c}</span>
                 ))}
               </div>

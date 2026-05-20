@@ -43,7 +43,7 @@ const ProductHero = () => (
       <div className="flex items-center gap-2 mono text-[11px] text-mandik-steel-70 mb-10">
         <a href="#" className="hover:text-accent">Výroba</a>
         <span>/</span>
-        <a href="#" className="hover:text-accent">VZT komponenty</a>
+        <a href="#" className="hover:text-accent">AHC komponenty</a>
         <span>/</span>
         <a href="#" className="hover:text-accent">Protipožární klapky</a>
         <span>/</span>
@@ -52,7 +52,7 @@ const ProductHero = () => (
 
       <div className="grid grid-cols-12 gap-10 items-start">
         <div className="col-span-7">
-          <CategoryBand color="#74d1ea" label="VZT komponenty · Protipožární klapky" kicker="kód 28.3.140" />
+          <CategoryBand color="#74d1ea" label="AHC komponenty · Protipožární klapky" kicker="kód 28.3.140" />
           <h1 className="h-display text-[88px] leading-[0.95] mt-6">PKTM III+</h1>
           <div className="mt-3 text-mandik-steel-80 text-[18px] max-w-xl">
             Protipožární klapka s tepelnou pojistkou pro obdélníkové potrubí. List klapky z kalcium-silikátu. Certifikace EI 30 — EI 120.

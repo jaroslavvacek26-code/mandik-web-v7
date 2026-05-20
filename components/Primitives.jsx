@@ -2,16 +2,16 @@
 
 import React from "react";
 
-export const Logo = ({ invert = false, size = 36, onNav }) => {
+export const Logo = ({ invert = false, size = 36, onNav, className = "" }) => {
   const color = invert ? "#ffffff" : "#506077";
   const ratio = 2958 / 879;
   const width = size * ratio;
   return (
     <a
-      href="#/"
+      href="/"
       onClick={(e) => { if (onNav) { e.preventDefault(); onNav("home"); } }}
       data-route="home"
-      className="inline-flex items-center select-none shrink-0 hover:opacity-80 transition-opacity"
+      className={`inline-flex items-center select-none shrink-0 hover:opacity-80 transition-opacity ${className}`}
       aria-label="MANDÍK — domů"
       style={{ height: size }}
     >

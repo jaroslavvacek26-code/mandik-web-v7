@@ -73,7 +73,7 @@ export const ReferencesScreen = ({ onNav }) => {
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mb-8">
             <div className="flex items-center gap-2">
               <span className="h-label text-[10px] text-mandik-steel-70">Oblast:</span>
-              {["Vše", "VZT komponenty", "AHU jednotky", "Topné systémy", "Speciální aplikace"].map((a) => (
+              {["Vše", "AHC komponenty", "AHU jednotky", "Topné systémy", "Speciální aplikace"].map((a) => (
                 <button key={a} onClick={() => setFilterArea(a)} className={`px-2.5 py-1 mono text-[11px] transition-colors ${filterArea === a ? "bg-mandik-steel text-white" : "bg-white hairline text-mandik-steel hover:bg-mandik-rule"}`}>{a}</button>
               ))}
             </div>

@@ -90,7 +90,7 @@ export const DownloadsScreen = ({ onNav }) => {
               <div>
                 <div className="h-label text-[11px] text-mandik-steel mb-3">Výrobní oblast</div>
                 <div className="space-y-1">
-                  {[["VŠE", "#506077"], ["VZT komponenty", "#74d1ea"], ["AHU jednotky", "#26d07c"], ["Topné systémy", "#f2a900"], ["Speciální aplikace", "#ffd700"]].map(([a, c]) => (
+                  {[["VŠE", "#506077"], ["AHC komponenty", "#74d1ea"], ["AHU jednotky", "#26d07c"], ["Topné systémy", "#f2a900"], ["Speciální aplikace", "#ffd700"]].map(([a, c]) => (
                     <button key={a} onClick={() => setArea(a)} className={`w-full text-left flex items-center gap-3 px-3 py-2 transition-colors ${area === a ? "bg-mandik-ink text-white" : "bg-white hairline text-mandik-ink hover:bg-white"}`}>
                       <span className="block w-2 h-2" style={{ background: c }} />
                       <span className="text-[13px]">{a}</span>

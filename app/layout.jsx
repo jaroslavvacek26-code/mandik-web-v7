@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "MANDÍK a.s. — výroba VZT komponentů, AHU jednotek a průmyslových topných systémů",
+  title: "MANDÍK a.s. — výroba AHC komponentů, AHU jednotek a průmyslových topných systémů",
   description:
     "Česká rodinná manufaktura od roku 1990. Protipožární klapky, AHU jednotky, průmyslové topné systémy. Dodávky do 32 zemí Evropy.",
 };
