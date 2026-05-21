@@ -47,7 +47,7 @@ const LangSwitcher = ({ value = "cs", onChange }) => {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 h-label text-[11px] text-white/75 hover:text-white transition-colors"
+        className="flex items-center gap-1.5 h-label text-[13px] text-white/75 hover:text-white transition-colors"
         aria-label="Vybrat jazyk"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -67,7 +67,7 @@ const LangSwitcher = ({ value = "cs", onChange }) => {
           <li key={code}>
             <button
               onClick={() => { onChange?.(code); setOpen(false); }}
-              className={`w-full flex items-center gap-2.5 px-4 py-2.5 h-label text-[11px] transition-colors ${
+              className={`w-full flex items-center gap-2.5 px-4 py-2.5 h-label text-[13px] transition-colors ${
                 value === code ? "text-accent" : "text-white/70 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -374,7 +374,7 @@ export const Header = ({ route, onNav, lang = "cs", onLang, categories = [] }) =
           {/* Logo — vede vždy na "/" (homepage)
               -ml-3 (= -12px): posune logo k levé hraně rozbalovacích menu.
               Zvyš na -ml-4 (-16px) / sniž na -ml-2 (-8px) podle potřeby. */}
-          <Logo invert size={78} onNav={onNav} className="-ml-6" />
+          <Logo invert size={78} onNav={onNav} className="-ml-2" />
 
           {/* Primary nav — self-stretch protáhne <ul> na plnou výšku nav baru (h-20),
               takže sliding green bar uvnitř s absolute bottom-0 sedí přesně na dolní hraně. */}
@@ -391,7 +391,7 @@ export const Header = ({ route, onNav, lang = "cs", onLang, categories = [] }) =
               <a
                 href="/"
                 onClick={(e) => navigateOrLink(e, "about", "/")}
-                className="flex items-center gap-1.5 h-label text-[11px] text-white/85 hover:text-white transition-colors duration-150 py-6 cursor-pointer select-none"
+                className="flex items-center gap-1.5 h-label text-[13px] text-white/85 hover:text-white transition-colors duration-150 py-6 cursor-pointer select-none"
               >
                 {t.company}
                 <svg className={`w-3.5 h-3.5 text-accent flex-shrink-0 transition-transform duration-200 ${companyOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -407,7 +407,7 @@ export const Header = ({ route, onNav, lang = "cs", onLang, categories = [] }) =
               <a
                 href={categories[0] ? `/vyroba/${categories[0].slug}` : "/"}
                 onClick={(e) => navigateOrLink(e, "product", "/")}
-                className="flex items-center gap-1.5 h-label text-[11px] text-white/85 hover:text-white transition-colors duration-150 py-6 cursor-pointer select-none"
+                className="flex items-center gap-1.5 h-label text-[13px] text-white/85 hover:text-white transition-colors duration-150 py-6 cursor-pointer select-none"
               >
                 {t.products}
                 <svg className={`w-3.5 h-3.5 text-accent flex-shrink-0 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -424,7 +424,7 @@ export const Header = ({ route, onNav, lang = "cs", onLang, categories = [] }) =
                 <a
                   href={href}
                   onClick={(e) => navigateOrLink(e, r, href)}
-                  className="h-label text-[11px] text-white/85 hover:text-white transition-colors duration-150 py-6 whitespace-nowrap"
+                  className="h-label text-[13px] text-white/85 hover:text-white transition-colors duration-150 py-6 whitespace-nowrap"
                 >
                   {label}
                 </a>

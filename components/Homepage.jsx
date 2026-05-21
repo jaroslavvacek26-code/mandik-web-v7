@@ -6,39 +6,43 @@ import { EuropeMap, PINS, AREA_COLOR } from "./EuropeMap";
 
 const HERO_VIDEO = "/assets/hero.webm";
 
+// Smart routing (jako ve v5):
+//   - Vzduchotechnické komponenty obsahuje 5 kategorií → klik vede na divize stránku.
+//   - Ostatní divize mají jen 1 kategorii → klik přeskočí mezistránku a vede rovnou
+//     na danou kategorii (/vyroba/[category-slug]).
 const HOMEPAGE_TILES = [
   {
     color: "#74d1ea",
     code: "AHC",
-    title: "AHC komponenty",
+    title: "Vzduchotechnické komponenty",
     sub: "Protipožární a regulační klapky, mřížky, tlumiče, anemostaty.",
     spec: "EI 30 — EI 240 · do 1 600 × 1 000 mm",
     qty: "1 240+ položek",
-    photo: "AHC KOMPONENTY",
+    photo: "VZDUCHOTECHNICKÉ KOMPONENTY",
     img: "/assets/division-vzt.jpg",
     href: "/vyroba/divize/vzduchotechnicke-komponenty",
   },
   {
     color: "#26d07c",
     code: "AHU",
-    title: "AHU jednotky",
+    title: "Vzduchotechnické jednotky",
     sub: "Sestavné vzduchotechnické jednotky MANDÍK, RLT certifikace.",
     spec: "do 100 000 m³/h · VDI 6022",
     qty: "9 řad · OEM",
-    photo: "AHU JEDNOTKY",
+    photo: "VZDUCHOTECHNICKÉ JEDNOTKY",
     img: "/assets/division-ahu.jpg",
-    href: "/vyroba/divize/vzduchotechnicke-jednotky",
+    href: "/vyroba/klimatizacni-jednotky",
   },
   {
     color: "#f2a900",
     code: "HEAT",
-    title: "Průmyslové topné systémy",
+    title: "Průmyslové vytápění",
     sub: "Teplovzdušné agregáty, sálavé panely, plynová tepelná čerpadla.",
     spec: "5 — 1 200 kW",
     qty: "MONZUN · HEATWING",
-    photo: "TOPNÉ SYSTÉMY",
+    photo: "PRŮMYSLOVÉ VYTÁPĚNÍ",
     img: "/assets/division-heat.jpg",
-    href: "/vyroba/divize/prumyslove-vytapeni",
+    href: "/vyroba/prumyslove-vytapeni-a-chlazeni",
   },
   {
     color: "#ffd700",
@@ -47,9 +51,9 @@ const HOMEPAGE_TILES = [
     sub: "Jaderná technika, tunelové systémy, vývoj na zakázku.",
     spec: "KTA 1401 · 10CFR APP10 · EN 12101-3",
     qty: "OEM",
-    photo: "JADERNÁ TECHNIKA",
+    photo: "SPECIÁLNÍ APLIKACE",
     img: "/assets/division-spec.jpg",
-    href: "/vyroba/divize/specialni-aplikace",
+    href: "/vyroba/specialni-aplikace",
   },
 ];
 
@@ -383,131 +387,71 @@ const News = () => (
   </section>
 );
 
-const ManselBlock = () => {
-  // iframe se renderuje až když se sekce přiblíží k viewportu — bez toho by
-  // SPA uvnitř fokusovala input a prohlížeč by skroloval na ni i po kliknutí
-  // na logo. rootMargin spustí načítání 400px před viewport, takže obvykle
-  // bude iframe připravený než tam uživatel doscrolluje.
-  const ref = React.useRef(null);
-  const inView = useInView(ref, { rootMargin: "400px 0px", threshold: 0 });
-
-  return (
-    <section ref={ref} className="bg-mandik-paper-soft border-t border-mandik-rule">
-      <div className="max-w-[1320px] mx-auto px-10 py-24">
-        <div className="grid grid-cols-12 gap-10 items-end mb-10">
-          <div className="col-span-7">
-            <SectionLabel color="#74d1ea">Selekční program · MANSEL</SectionLabel>
-            <SectionTitle>Navrhněte AHC komponenty<br/>online — výběr, výpočet, výkres.</SectionTitle>
-          </div>
-          <div className="col-span-5 text-sm text-mandik-steel-80">
-            MANSEL je oficiální selekční program MANDÍK. Vyberete typ klapky, zadáte rozměry a&nbsp;průtok — dostanete kompletní dokumentaci včetně DWG / IFC modelu a&nbsp;protokolu o&nbsp;tlakové ztrátě.
-          </div>
-        </div>
-
-        <div className="relative bg-white hairline" style={{ height: "820px" }}>
-          {inView ? (
-            <iframe
-              src="https://mansel.online"
-              title="MANSEL — selekční program MANDÍK"
-              allow="fullscreen"
-              allowFullScreen
-              tabIndex={-1}
-              className="w-full h-full"
-              style={{ border: 0 }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center img-placeholder">
-              <span>MANSEL · načte se po doscrolování</span>
-            </div>
-          )}
-          <div className="absolute top-4 left-4 bg-cat-vzt text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">MANSEL · LIVE</div>
-          <div className="absolute top-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none">mansel.online</div>
-        </div>
-
-        <div className="mt-3 grid grid-cols-4 gap-px bg-mandik-rule hairline">
-          {["Bez registrace · základní výběr","Výstup PDF · DWG · IFC","Akt. ceník a&nbsp;dostupnost","Podpora projektantů"].map((b) => (
-            <div key={b} className="bg-white p-3 h-label text-[11px] text-mandik-steel text-center" dangerouslySetInnerHTML={{ __html: b }} />
-          ))}
-        </div>
-
-        <div className="mt-7 flex items-center justify-between flex-wrap gap-4">
-          <div className="mono text-[12px] text-mandik-steel-70">
-            Pokud se MANSEL nenačte v rámci, otevřete jej v novém okně — některé prohlížeče blokují vložené aplikace.
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="primary" href="https://mansel.online">Otevřít MANSEL v novém okně</Button>
-            <Button variant="ghost" href="#">Stáhnout uživatelskou příručku</Button>
-          </div>
+const ManselBlock = () => (
+  <section className="bg-mandik-paper-soft border-t border-mandik-rule">
+    <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
+      <div className="col-span-6">
+        <SectionLabel color="#74d1ea">Selekční program · MANSEL</SectionLabel>
+        <h2 className="h-display text-[44px] leading-[1.05] text-mandik-ink">
+          Navrhněte AHC komponenty<br/>online — výběr, výpočet, výkres.
+        </h2>
+        <p className="mt-5 text-mandik-steel-80 max-w-md text-[15px] leading-relaxed">
+          MANSEL je oficiální selekční program MANDÍK. Vyberete typ klapky, zadáte rozměry a&nbsp;průtok — dostanete kompletní dokumentaci včetně DWG / IFC modelu a&nbsp;protokolu o&nbsp;tlakové ztrátě.
+        </p>
+        <div className="mt-7 flex gap-3">
+          <Button variant="primary" href="https://mansel.online">Otevřít MANSEL</Button>
+          <Button variant="ghost" href="#">Uživatelská příručka</Button>
         </div>
       </div>
-    </section>
-  );
-};
-
-const AhumanBlock = () => {
-  // Stejně jako MANSEL — iframe nerendruje dokud sekce není blízko viewportu.
-  const ref = React.useRef(null);
-  const inView = useInView(ref, { rootMargin: "400px 0px", threshold: 0 });
-
-  return (
-    <section ref={ref} className="bg-white border-t border-mandik-rule">
-      <div className="max-w-[1320px] mx-auto px-10 py-24">
-        <div className="grid grid-cols-12 gap-10 items-end mb-10">
-          <div className="col-span-7">
-            <SectionLabel color="#26d07c">Konfigurátor · AHUman</SectionLabel>
-            <SectionTitle>Návrh AHU jednotky<br/>od&nbsp;průtoku po&nbsp;cenovou nabídku.</SectionTitle>
-          </div>
-          <div className="col-span-5 text-sm text-mandik-steel-80">
-            AHUman je online konfigurátor sestavných vzduchotechnických jednotek MANDÍK. Zadáte průtok, externí tlak a&nbsp;hygienické požadavky — dostanete schéma sestavy, akustický protokol a&nbsp;cenovou indikaci.
-          </div>
+      <div className="col-span-6 relative">
+        <div className="relative bg-white hairline" style={{ aspectRatio: "4 / 3" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/mansel-preview.png"
+            alt="MANSEL — náhled selekčního programu"
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
         </div>
+        <div className="absolute top-4 left-4 bg-cat-vzt text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">MANSEL</div>
+        <div className="absolute bottom-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none">mansel.online</div>
+      </div>
+    </div>
+  </section>
+);
 
-        {/* AHUman switches to a cramped narrow layout below ~1500px viewport,
-            so render it natively at 1900px and scale it down to fit. */}
-        <div className="relative hairline overflow-hidden" style={{ height: "806px" }}>
-          {inView ? (
-            <iframe
-              src="https://ahuman.mandik.cloud/"
-              title="AHUman — konfigurátor AHU jednotek MANDÍK"
-              allow="fullscreen"
-              allowFullScreen
-              tabIndex={-1}
-              style={{
-                border: 0,
-                width: "1900px",
-                height: "1240px",
-                transform: "scale(0.65)",
-                transformOrigin: "0 0",
-              }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center img-placeholder">
-              <span>AHUMAN · načte se po doscrolování</span>
-            </div>
-          )}
-          <div className="absolute top-4 left-4 bg-accent text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none z-10">AHUMAN · LIVE</div>
-          <div className="absolute top-4 right-4 mono text-[10px] text-mandik-steel-70 bg-white/90 px-2 py-1 pointer-events-none z-10">ahuman.mandik.cloud</div>
-        </div>
-
-        <div className="mt-3 grid grid-cols-4 gap-px bg-mandik-rule hairline">
-          {["Průtok do 100 000 m³/h","Eurovent · VDI 6022","Akustický protokol","Cenová indikace v reálném čase"].map((b) => (
-            <div key={b} className="bg-white p-3 h-label text-[11px] text-mandik-steel text-center">{b}</div>
-          ))}
-        </div>
-
-        <div className="mt-7 flex items-center justify-between flex-wrap gap-4">
-          <div className="mono text-[12px] text-mandik-steel-70">
-            Pro pokročilé funkce (uložené projekty, export DWG, BIM rodiny) je doporučeno otevřít AHUman v samostatném okně.
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="primary" href="https://ahuman.mandik.cloud/">Otevřít AHUman v novém okně</Button>
-            <Button variant="ghost" href="#">Stáhnout uživatelskou příručku</Button>
-          </div>
+const AhumanBlock = () => (
+  <section className="bg-white border-t border-mandik-rule">
+    <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
+      <div className="col-span-6">
+        <SectionLabel color="#26d07c">Konfigurátor · AHUman</SectionLabel>
+        <h2 className="h-display text-[44px] leading-[1.05] text-mandik-ink">
+          Návrh AHU jednotky<br/>od&nbsp;průtoku po&nbsp;cenovou nabídku.
+        </h2>
+        <p className="mt-5 text-mandik-steel-80 max-w-md text-[15px] leading-relaxed">
+          AHUman je online konfigurátor sestavných vzduchotechnických jednotek MANDÍK. Zadáte průtok, externí tlak a&nbsp;hygienické požadavky — dostanete schéma sestavy, akustický protokol a&nbsp;cenovou indikaci.
+        </p>
+        <div className="mt-7 flex gap-3">
+          <Button variant="primary" href="https://ahuman.mandik.cloud/">Otevřít AHUman</Button>
+          <Button variant="ghost" href="#">Uživatelská příručka</Button>
         </div>
       </div>
-    </section>
-  );
-};
+      <div className="col-span-6 relative">
+        <div className="relative bg-mandik-ink hairline" style={{ aspectRatio: "4 / 3" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/ahuman-preview.png"
+            alt="AHUman — náhled konfigurátoru"
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
+        </div>
+        <div className="absolute top-4 left-4 bg-accent text-mandik-ink h-label text-[10px] px-2 py-1 pointer-events-none">AHUMAN</div>
+        <div className="absolute bottom-4 right-4 mono text-[10px] text-white/80 bg-mandik-ink/70 px-2 py-1 pointer-events-none">ahuman.mandik.cloud</div>
+      </div>
+    </div>
+  </section>
+);
 
 const Showroom = ({ onNav }) => (
   <section className="bg-mandik-steel text-white relative overflow-hidden">
