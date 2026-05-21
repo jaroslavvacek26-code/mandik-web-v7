@@ -31,3 +31,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Lokální zálohy / starší verze souborů (např. ahuman-preview_x.png).
+# Suffix `_x` slouží jako konvence pro neaktivní verze; do gitu nepatří.
+*_x.*
