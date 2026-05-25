@@ -5,11 +5,11 @@ import { Logo } from "./Primitives";
 
 // --- Statická data pro Naše společnost (struktura z v5) ---
 const COMPANY_ITEMS = [
-  { slug: "o-nas",       label: "O nás",                    route: "about",      photo: "/assets/division-ahu.jpg" },
-  { slug: "reference",   label: "Reference",                route: "references", photo: "/assets/division-vzt.jpg" },
-  { slug: "novinky",     label: "Novinky",                  route: "home",       photo: "/assets/division-heat.jpg" },
-  { slug: "kariera",     label: "Volná pracovní místa",     route: "home",       photo: "/assets/division-spec.jpg" },
-  { slug: "certifikaty", label: "Certifikace a dokumenty",  route: "downloads",  photo: "/assets/cert/EUROVENT.png" },
+  { slug: "o-nas",       label: "O nás",                    route: "about",      photo: "/assets/header-o-nas.jpg" },
+  { slug: "reference",   label: "Reference",                route: "references", photo: "/assets/header-reference.jpg" },
+  { slug: "novinky",     label: "Novinky",                  route: "home",       photo: "/assets/header-novinky.jpg" },
+  { slug: "kariera",     label: "Volná pracovní místa",     route: "home",       photo: "/assets/header-kariera.jpg" },
+  { slug: "certifikaty", label: "Certifikace a dokumenty",  route: "downloads",  photo: "/assets/header-certifikaty.jpg" },
 ];
 
 const COMPANY_DESCRIPTION =
@@ -83,6 +83,9 @@ const LangSwitcher = ({ value = "cs", onChange }) => {
 };
 
 // --- Mega menu (3 sloupce: popis | seznam | foto, s green hover scrubberem mezi sloupci) ---
+// imageFit:
+//   "cover"   — celoplošná fotka vyplní pravý sloupec (např. Naše společnost — landscape fotky)
+//   "contain" — produktová fotka (default) — proporčně zmenšená, vystředěná, beze ořezu
 const MegaMenu = ({
   open,
   label,
@@ -93,6 +96,7 @@ const MegaMenu = ({
   onItemClick,
   onMouseEnter,
   onMouseLeave,
+  imageFit = "contain",
 }) => {
   const [mouseY, setMouseY] = React.useState(null);
   const active = items.find((i) => i.slug === activeSlug) ?? items[0];
@@ -193,26 +197,41 @@ const MegaMenu = ({
             </div>
 
             {/* Sloupec 3: foto */}
-            <div className="relative overflow-hidden flex items-center justify-center p-8">
-              {photo ? (
-                <div className="relative w-full max-w-[220px] aspect-square">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+            {imageFit === "cover" ? (
+              /* Landscape fotka vyplní celý sloupec (Naše společnost) */
+              <div className="relative overflow-hidden">
+                {photo ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={photo}
                     alt={active?.label ?? ""}
-                    className="w-full h-full object-contain transition-opacity duration-300"
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
                     onError={(e) => { e.currentTarget.style.display = "none"; }}
                   />
-                  <p className="mt-3 h-display text-white text-sm leading-snug text-center">
-                    {active?.label}
-                  </p>
-                </div>
-              ) : (
-                <div className="w-full max-w-[220px] aspect-square bg-white/10 flex items-center justify-center">
-                  <span className="text-white/30 text-5xl h-display">M</span>
-                </div>
-              )}
-            </div>
+                ) : (
+                  <div className="absolute inset-0 bg-white/10 flex items-center justify-center">
+                    <span className="text-white/30 text-5xl h-display">M</span>
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Produktová fotka — vystředěná, zmenšená beze ořezu (Výrobky) */
+              <div className="relative overflow-hidden flex items-center justify-center p-8">
+                {photo ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={photo}
+                    alt={active?.label ?? ""}
+                    className="max-w-[300px] max-h-[300px] w-auto h-auto object-contain transition-opacity duration-300"
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                ) : (
+                  <div className="w-full max-w-[220px] aspect-square bg-white/10 flex items-center justify-center">
+                    <span className="text-white/30 text-5xl h-display">M</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -500,6 +519,7 @@ export const Header = ({ route, onNav, lang = "cs", onLang, categories = [] }) =
           onItemClick={(it) => { onNav(it.route); closeAll(); }}
           onMouseEnter={companyEnter}
           onMouseLeave={companyLeave}
+          imageFit="cover"
         />
 
         {/* Mega-menu: Výrobky (z mandik.online API) */}

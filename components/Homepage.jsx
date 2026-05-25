@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SectionLabel, SectionTitle, Button, Stat, useInView } from "./Primitives";
+import { SectionLabel, SectionTitle, Button, Stat, useInView, Reveal } from "./Primitives";
 import { EuropeMap, PINS, AREA_COLOR } from "./EuropeMap";
 
 const HERO_VIDEO = "/assets/hero.webm";
@@ -172,27 +172,29 @@ const CategoryGrid = ({ onNav }) => (
       </div>
       <div className="grid grid-cols-4 gap-px bg-mandik-rule">
         {HOMEPAGE_TILES.map((t) => (
-          <a key={t.code} href={t.href} className="tile relative bg-white p-8 group transition-colors hover:bg-mandik-paper-soft">
+          <a
+            key={t.code}
+            href={t.href}
+            style={{ "--tile-color": t.color }}
+            className="tile relative bg-white p-5 group transition-colors hover:bg-mandik-paper-soft"
+          >
             <span className="tile-bar" style={{ background: t.color }} />
-            <div className="aspect-square relative overflow-hidden mb-7 bg-mandik-paper-soft">
+            <div className="aspect-square relative overflow-hidden mb-6 bg-mandik-paper-soft">
               <img
                 src={t.img}
                 alt={t.title}
                 loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               />
-              <span className="absolute top-3 left-3 mono text-[10px] px-2 py-0.5 text-mandik-ink z-10" style={{ background: t.color }}>
-                {t.code}
-              </span>
             </div>
             <div className="flex items-center gap-3 mb-3">
               <span className="block h-1 w-8" style={{ background: t.color }} />
-              <span className="h-label text-[10px] text-mandik-steel">{t.qty}</span>
+              <span className="h-label text-[14px]" style={{ color: t.color }}>{t.code}</span>
             </div>
-            <div className="h-display text-[22px] leading-tight">{t.title}</div>
+            <div className="h-display text-[18px] leading-tight whitespace-nowrap">{t.title}</div>
             <div className="text-sm text-mandik-steel-80 mt-2">{t.sub}</div>
             <div className="mt-6 pt-4 border-t border-mandik-rule mono text-[11px] text-mandik-steel-70">{t.spec}</div>
-            <div className="mt-5 h-label text-[11px] text-mandik-steel group-hover:text-accent">Otevřít →</div>
+            <div className="mt-5 h-label text-[11px] text-mandik-steel transition-colors group-hover:text-[var(--tile-color)]">Otevřít →</div>
           </a>
         ))}
       </div>
@@ -327,7 +329,10 @@ const Certifications = () => (
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-mandik-rule hairline">
+      {/* Wrapper s clip-path "ořezává" 1-2px sub-pixel přesah bg-mandik-rule na pravé hraně.
+          Vnitřní mezery (gap-px) zůstávají jako separátory mezi buňkami. */}
+      <div className="overflow-hidden">
+       <div className="grid grid-cols-7 gap-px bg-mandik-rule">
         {CERT_LOGOS.map((c) => (
           <a
             key={c.alt}
@@ -350,6 +355,7 @@ const Certifications = () => (
             </div>
           </a>
         ))}
+       </div>
       </div>
     </div>
   </section>
@@ -454,11 +460,11 @@ const AhumanBlock = () => (
 );
 
 const Showroom = ({ onNav }) => (
-  <section className="bg-mandik-steel text-white relative overflow-hidden">
+  <section className="bg-mandik-steel-90 text-white relative overflow-hidden">
     <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
       <div className="col-span-6">
         <SectionLabel color="#26d07c"><span className="text-accent">Nově · virtuální showroom</span></SectionLabel>
-        <h2 className="h-display text-[44px] leading-[1.05]">Projděte si výrobu<br/>v Hostomicích bez návštěvy.</h2>
+        <h2 className="h-display text-[44px] leading-[1.05] text-white">Projděte si výrobu<br/>v Hostomicích bez návštěvy.</h2>
         <p className="mt-5 text-white/75 max-w-md text-[15px]">
           Interaktivní 360° prohlídka výroby, testovacích buněk pro EI 240 a kompletační haly AHU jednotek. Přístup pro projektanty na vyžádání.
         </p>
@@ -487,14 +493,16 @@ const Showroom = ({ onNav }) => (
 
 export const Homepage = ({ onNav, tweaks = { heroMedia: "video", parallax: true } }) => (
   <div data-screen-label="Homepage" className="page-enter">
+    {/* Hero zůstává bez Reveal — uživatel ho vidí ihned po načtení. */}
     <Hero onNav={onNav} mediaStyle={tweaks.heroMedia} parallax={tweaks.parallax} />
-    <StatsStrip />
-    <CategoryGrid onNav={onNav} />
-    <Certifications />
-    <RefMapPreview onNav={onNav} />
-    <ManselBlock />
-    <AhumanBlock />
-    <News />
-    <Showroom onNav={onNav} />
+    {/* Všechny ostatní sekce: scroll reveal (fade-in + slide-up při vstupu do viewportu) */}
+    <Reveal><StatsStrip /></Reveal>
+    <Reveal><CategoryGrid onNav={onNav} /></Reveal>
+    <Reveal><Certifications /></Reveal>
+    <Reveal><RefMapPreview onNav={onNav} /></Reveal>
+    <Reveal><ManselBlock /></Reveal>
+    <Reveal><AhumanBlock /></Reveal>
+    <Reveal><News /></Reveal>
+    <Reveal><Showroom onNav={onNav} /></Reveal>
   </div>
 );

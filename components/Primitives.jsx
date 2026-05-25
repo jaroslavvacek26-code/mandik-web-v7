@@ -139,6 +139,25 @@ export const Stat = ({ value, suffix = "", label, sub, inView }) => {
   );
 };
 
+// Scroll-reveal wrapper — fade-in + slide-up když se element dostane do viewportu.
+// Použij přímo: <Reveal><MujKus /></Reveal>
+// Volitelně delay (ms) pro stagger u sourozenců.
+export const Reveal = ({ children, delay = 0, className = "" }) => {
+  const ref = React.useRef(null);
+  const seen = useInView(ref, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ease-out will-change-transform ${
+        seen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      } ${className}`}
+      style={{ transitionDelay: seen ? `${delay}ms` : "0ms" }}
+    >
+      {children}
+    </div>
+  );
+};
+
 export const useInView = (ref, opts = { threshold: 0.2 }) => {
   const [seen, setSeen] = React.useState(false);
   React.useEffect(() => {
