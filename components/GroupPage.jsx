@@ -39,7 +39,7 @@ const DownloadLink = ({ file }) => (
   </li>
 );
 
-export const GroupPage = ({ category, group, subcategoryName }) => {
+export const GroupPage = ({ category, group, subcategoryName, accentColor = "#26d07c" }) => {
   // Downloads grouped by type
   const downloadsByType = {};
   for (const d of group.downloads ?? []) {
@@ -52,9 +52,9 @@ export const GroupPage = ({ category, group, subcategoryName }) => {
       <div className="max-w-[1320px] mx-auto px-10 py-16">
         {/* Breadcrumb */}
         <nav className="flex flex-wrap items-center gap-2 mono text-[11px] text-mandik-steel-70 mb-10">
-          <a href="/" className="hover:text-accent transition-colors">Domů</a>
+          <a href="/" className="hover:text-mandik-ink transition-colors">Domů</a>
           <span>/</span>
-          <a href={`/vyroba/${category.slug}`} className="hover:text-accent transition-colors">{category.name}</a>
+          <a href={`/vyroba/${category.slug}`} className="hover:text-mandik-ink transition-colors">{category.name}</a>
           {subcategoryName && (
             <>
               <span>/</span>
@@ -74,9 +74,9 @@ export const GroupPage = ({ category, group, subcategoryName }) => {
               {group.name}
             </h1>
             {group.subtitle && (
-              <p className="h-label text-[12px] text-accent mt-3">{group.subtitle}</p>
+              <p className="h-label text-[12px] mt-3" style={{ color: accentColor }}>{group.subtitle}</p>
             )}
-            <div className="mt-4 w-16 h-1 bg-accent mb-7" />
+            <div className="mt-4 w-16 h-1 mb-7" style={{ background: accentColor }} />
 
             {group.description && (
               <p className="text-mandik-steel-80 leading-relaxed mb-7 text-[15px]">{group.description}</p>
@@ -109,7 +109,7 @@ export const GroupPage = ({ category, group, subcategoryName }) => {
                     if (!text) return null;
                     return (
                       <li key={i} className="flex items-start gap-2 text-sm text-mandik-steel-80">
-                        <span className="mt-2 w-1.5 h-1.5 bg-accent shrink-0" />
+                        <span className="mt-2 w-1.5 h-1.5 shrink-0" style={{ background: accentColor }} />
                         {text}
                       </li>
                     );
@@ -124,7 +124,7 @@ export const GroupPage = ({ category, group, subcategoryName }) => {
         {group.specification && (
           <section className="mb-16">
             <h2 className="h-display text-[28px] text-mandik-ink mb-3">Technická specifikace</h2>
-            <div className="w-12 h-1 bg-accent mb-6" />
+            <div className="w-12 h-1 mb-6" style={{ background: accentColor }} />
             <div
               className="text-sm leading-relaxed text-mandik-steel-80 max-w-4xl"
               style={{ wordBreak: "normal" }}
@@ -137,12 +137,12 @@ export const GroupPage = ({ category, group, subcategoryName }) => {
         {Object.keys(downloadsByType).length > 0 && (
           <section>
             <h2 className="h-display text-[28px] text-mandik-ink mb-3">Ke stažení</h2>
-            <div className="w-12 h-1 bg-accent mb-8" />
+            <div className="w-12 h-1 mb-8" style={{ background: accentColor }} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {Object.entries(downloadsByType).map(([type, files]) => (
                 <div key={type}>
                   <h3 className="h-label text-[12px] text-mandik-ink mb-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-accent shrink-0" />
+                    <span className="w-2 h-2 shrink-0" style={{ background: accentColor }} />
                     {type}
                   </h3>
                   <ul className="space-y-2">

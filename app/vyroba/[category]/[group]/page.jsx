@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Shell } from "@/components/Shell";
 import { GroupPage } from "@/components/GroupPage";
 import { fetchPortfolio } from "@/lib/api";
+import { getCategoryColor } from "@/lib/divisions";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,7 @@ export default async function Page({ params }) {
 
   return (
     <Shell categories={categories}>
-      <GroupPage category={cat} group={group} subcategoryName={subcategoryName} />
+      <GroupPage category={cat} group={group} subcategoryName={subcategoryName} accentColor={getCategoryColor(category)} />
     </Shell>
   );
 }

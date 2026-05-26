@@ -530,7 +530,9 @@ export const Header = ({ route, onNav, lang = "cs", onLang, categories = [] }) =
           items={productsItems}
           activeSlug={activeCategorySlug}
           onActiveChange={setActiveCategorySlug}
-          onItemClick={(it) => { onNav("category"); closeAll(); }}
+          /* Klik na kategorii vede přes <a href="/vyroba/[slug]"> (browser navigace) — onNav by
+             v SPA módu zbytečně rendroval ProductDetail před tím, než dojde k full-page navigaci. */
+          onItemClick={() => closeAll()}
           onMouseEnter={productsEnter}
           onMouseLeave={productsLeave}
         />

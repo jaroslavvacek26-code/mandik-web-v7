@@ -5,15 +5,17 @@ import { SectionLabel } from "./Primitives";
 
 // Vykresluje stránku kategorie výrobků (např. /vyroba/pozarni-technika).
 // Data odpovídají odpovědi mandik.info/api/v1/ltu/portfolio (jeden item z pole).
+// `accentColor` je barva divize, do které kategorie patří (např. AHC = #74d1ea).
 
-const GroupCard = ({ group, categorySlug }) => {
+const GroupCard = ({ group, categorySlug, accentColor }) => {
   const img = group.gallery?.[0];
   return (
     <a
       href={`/vyroba/${categorySlug}/${group.slug}`}
+      style={{ "--division-color": accentColor }}
       className="tile group relative bg-white hairline overflow-hidden flex flex-col transition-shadow hover:shadow-lg"
     >
-      <span className="tile-bar" style={{ background: "#26d07c" }} />
+      <span className="tile-bar" style={{ background: accentColor }} />
       <div className="relative aspect-[4/3] bg-mandik-paper-soft">
         {img ? (
           /* eslint-disable-next-line @next/next/no-img-element */
@@ -29,7 +31,7 @@ const GroupCard = ({ group, categorySlug }) => {
         )}
       </div>
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="h-display text-[18px] text-mandik-ink group-hover:text-accent transition-colors leading-tight">
+        <h3 className="h-display text-[18px] text-mandik-ink transition-colors leading-tight group-hover:text-[var(--division-color)]">
           {group.name}
         </h3>
         {group.subtitle && (
@@ -40,15 +42,15 @@ const GroupCard = ({ group, categorySlug }) => {
   );
 };
 
-const GroupGrid = ({ groups = [], categorySlug }) => (
+const GroupGrid = ({ groups = [], categorySlug, accentColor }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     {groups.map((g) => (
-      <GroupCard key={g.public_id} group={g} categorySlug={categorySlug} />
+      <GroupCard key={g.public_id} group={g} categorySlug={categorySlug} accentColor={accentColor} />
     ))}
   </div>
 );
 
-export const CategoryPage = ({ category }) => {
+export const CategoryPage = ({ category, accentColor = "#26d07c" }) => {
   const hasSubcategories = (category.subcategories?.length ?? 0) > 0;
 
   return (
@@ -56,18 +58,18 @@ export const CategoryPage = ({ category }) => {
       <div className="max-w-[1320px] mx-auto px-10 py-16">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mono text-[11px] text-mandik-steel-70 mb-10">
-          <a href="/" className="hover:text-accent transition-colors">Domů</a>
+          <a href="/" className="hover:text-mandik-ink transition-colors">Domů</a>
           <span>/</span>
           <span className="text-mandik-ink">{category.name}</span>
         </nav>
 
         {/* Hlavička kategorie */}
         <div className="mb-14">
-          <SectionLabel>Výrobky</SectionLabel>
+          <SectionLabel color={accentColor}>Výrobky</SectionLabel>
           <h1 className="h-display text-[48px] leading-[1.05] text-mandik-ink mb-5">
             {category.name}
           </h1>
-          <div className="w-16 h-1 bg-accent mb-6" />
+          <div className="w-16 h-1 mb-6" style={{ background: accentColor }} />
           {category.description && (
             <p className="text-mandik-steel-80 leading-relaxed max-w-3xl text-[15px]">
               {category.description}
@@ -89,15 +91,15 @@ export const CategoryPage = ({ category }) => {
                   )}
                   <div>
                     <h2 className="h-display text-[26px] text-mandik-ink">{sub.name}</h2>
-                    <div className="mt-1 w-10 h-0.5 bg-accent" />
+                    <div className="mt-1 w-10 h-0.5" style={{ background: accentColor }} />
                   </div>
                 </div>
-                <GroupGrid groups={sub.groups} categorySlug={category.slug} />
+                <GroupGrid groups={sub.groups} categorySlug={category.slug} accentColor={accentColor} />
               </section>
             ))}
           </div>
         ) : (
-          <GroupGrid groups={category.groups} categorySlug={category.slug} />
+          <GroupGrid groups={category.groups} categorySlug={category.slug} accentColor={accentColor} />
         )}
       </div>
     </div>

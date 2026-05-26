@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Shell } from "@/components/Shell";
 import { CategoryPage } from "@/components/CategoryPage";
 import { fetchPortfolio } from "@/lib/api";
+import { getCategoryColor } from "@/lib/divisions";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export default async function Page({ params }) {
 
   return (
     <Shell categories={categories}>
-      <CategoryPage category={cat} />
+      <CategoryPage category={cat} accentColor={getCategoryColor(category)} />
     </Shell>
   );
 }
