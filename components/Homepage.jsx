@@ -104,7 +104,7 @@ const Hero = ({ onNav, mediaStyle = "video", parallax = true }) => {
               <span className="h-label text-[11px] text-white/80">Hostomice · Česká republika</span>
             </div>
             <h1 className="h-display text-[64px] leading-[1.0] text-white">
-              Jsme největší český výrobce komponent pro větrání a&nbsp;požární ochranu budov
+              „Jsme největší český výrobce komponent pro větrání a&nbsp;požární bezpečnost budov“
             </h1>
             <p className="mt-7 text-white/80 text-[18px] max-w-xl leading-relaxed">
               Česká rodinná firma. Klapky, AHU jednotky a&nbsp;průmyslové topné systémy pro výškové budovy, jaderné elektrárny a&nbsp;technologické kampusy.
@@ -167,7 +167,7 @@ const CategoryGrid = ({ onNav }) => (
           <SectionTitle>Od ⌀100 mm do 100&nbsp;000 m³/h.<br/>Vlastní vývoj. Hostomická výroba.</SectionTitle>
         </div>
         <div className="col-span-4 text-mandik-steel-80 text-sm">
-          Každá výrobní oblast má vlastní barvu — odpovídá značení v dokumentaci, na výrobních štítcích a v identifikaci v expedici.
+          „Komplexní portfolio výrobků pro větrání, klimatizaci, vytápění a požární bezpečnost“
         </div>
       </div>
       <div className="grid grid-cols-4 gap-px bg-mandik-rule">
@@ -219,7 +219,7 @@ const RefMapPreview = ({ onNav }) => {
             <h2 className="h-display text-[44px] leading-[1.05]">Naše komponenty<br/>v 1 280 budovách napříč Evropou.</h2>
           </div>
           <div className="col-span-5 text-white/65 text-sm">
-            Od jaderných elektráren po Národní muzeum. Mapa se vykresluje při scrollu — kliknutím na špendlík zobrazíte případovou studii.
+            „Naše výrobky a&nbsp;řešení jsou součástí tisíců projektů po celém světě – od průmyslových hal přes nemocnice a&nbsp;datová centra až po administrativní budovy.“
           </div>
         </div>
 
@@ -464,9 +464,9 @@ const Showroom = ({ onNav }) => (
     <div className="max-w-[1320px] mx-auto px-10 py-24 grid grid-cols-12 gap-10 items-center">
       <div className="col-span-6">
         <SectionLabel color="#26d07c"><span className="text-accent">Nově · virtuální showroom</span></SectionLabel>
-        <h2 className="h-display text-[44px] leading-[1.05] text-white">Projděte si výrobu<br/>v Hostomicích bez návštěvy.</h2>
+        <h2 className="h-display text-[44px] leading-[1.05] text-white">Prohlédněte si naše<br/>výrobky a&nbsp;řešení zblízka odkudkoliv.</h2>
         <p className="mt-5 text-white/75 max-w-md text-[15px]">
-          Interaktivní 360° prohlídka výroby, testovacích buněk pro EI 240 a kompletační haly AHU jednotek. Přístup pro projektanty na vyžádání.
+          Projděte si náš showroom plný výrobků Mandík ve 360°, aniž byste museli cestovat do Hostomic. Prohlídka je dostupná kdykoliv a&nbsp;snadno ji sdílíte s&nbsp;kolegy.
         </p>
         <div className="mt-7 flex gap-3">
           <Button variant="primary" href="https://my.matterport.com/show/?m=MW8NFZmbZoo">Otevřít showroom</Button>

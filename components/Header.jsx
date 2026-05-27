@@ -8,7 +8,7 @@ const COMPANY_ITEMS = [
   { slug: "o-nas",       label: "O nás",                    route: "about",      photo: "/assets/header-o-nas.jpg" },
   { slug: "reference",   label: "Reference",                route: "references", photo: "/assets/header-reference.jpg" },
   { slug: "novinky",     label: "Novinky",                  route: "home",       photo: "/assets/header-novinky.jpg" },
-  { slug: "kariera",     label: "Volná pracovní místa",     route: "home",       photo: "/assets/header-kariera.jpg" },
+  { slug: "kariera",     label: "Kariéra",     route: "home",       photo: "/assets/header-kariera.jpg" },
   { slug: "certifikaty", label: "Certifikace a dokumenty",  route: "downloads",  photo: "/assets/header-certifikaty.jpg" },
 ];
 

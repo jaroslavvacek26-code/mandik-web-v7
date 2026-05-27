@@ -99,7 +99,7 @@ export const Footer = ({ onNav, categories = [] }) => {
                     { label: "O nás" },
                     { label: "Reference" },
                     { label: "Novinky" },
-                    { label: "Volná pracovní místa" },
+                    { label: "Kariéra" },
                     { label: "Certifikace a dokumenty" },
                     { label: "Kontakt" },
                   ].map((item) => (
